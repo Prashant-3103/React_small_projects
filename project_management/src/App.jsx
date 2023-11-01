@@ -7,8 +7,38 @@ import SelectedProject from "./components/SelectedProject";
 function App() {
   const [projectState, setProjectState] = useState({
     selectedProjectId: undefined,
-    projects: []
+    projects: [],
+    tasks: []
   })
+
+  function handleAddTasks(text)
+  {
+    setProjectState(prevState=>{
+      const taskId = Math.random()
+  const newTask = {
+   text: text,
+   projectId: prevState.selectedProjectId,
+    id: taskId
+  }
+
+      return{
+        ...prevState,
+        tasks:[newTask,...prevState.tasks]
+
+      }
+    })
+  }
+
+  function handleDeleteTasks(id)
+  {
+    setProjectState(prevState=>{
+      return{
+        ...prevState,
+ tasks: prevState.tasks.filter((task)=> task.id!==id)
+      }
+    })
+
+  }
 
 function handleSelectProject(id)
 {
@@ -74,7 +104,7 @@ projects: prevState.projects.filter((project)=> project.id!==prevState.selectedP
 }
 
 const selectedProject = projectState.projects.find(project=>project.id === projectState.selectedProjectId)
-let content = <SelectedProject project={selectedProject} onDelete={handleDeleteProject}/>;
+let content = <SelectedProject project={selectedProject} onDelete={handleDeleteProject} onAddTask={handleAddTasks} onDeleteTask={handleDeleteTasks} tasks={projectState.tasks}/>;
 if(projectState.selectedProjectId===null)
 {
   content = <NewProject onAdd={handleAddProject} onCancel={handleCancelAddProject}  />
@@ -89,7 +119,7 @@ else if(projectState.selectedProjectId===undefined)
   return (
 
      <main className="h-screen my-8 flex gap-8">
-      <ProjectsSideBar onStartAddProject={handleStartAddProject} projects={projectState.projects} onSelectProject={handleSelectProject}/>
+      <ProjectsSideBar onStartAddProject={handleStartAddProject} projects={projectState.projects} onSelectProject={handleSelectProject} selectedProjectId={projectState.selectedProjectId}/>
     {content}
      </main>
 
