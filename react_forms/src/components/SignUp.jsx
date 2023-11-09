@@ -8,6 +8,7 @@ function handleSubmit(e)
 const data = Object.fromEntries(formData.entries())
 data.acquisition = acquisitionChannel
 console.log(data);
+
 }
 
     return (
