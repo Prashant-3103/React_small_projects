@@ -24,6 +24,10 @@ setEnteredValues(prevValues=>({
   ...prevValues,
   [identifier]: value
 }))
+setDidEdit(prevEdit=>({
+    ...prevEdit,
+    [identifier]: false
+}))
 }
 
 function handleInputBlur(identifier)

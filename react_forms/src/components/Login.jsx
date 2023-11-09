@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { useState } from "react";
 
 export default function Login() {
+  const [emailIsInValid, setEmailIsInValid] = useState(false)
 const email = useRef()
 const password = useRef()
 
@@ -10,7 +11,14 @@ function handleSubmit(e) {
 
   const enteredEmail = email.current.value
   const enteredPassword = password.current.value
-  console.log(enteredEmail, enteredPassword);
+
+  const emailIsValid = enteredEmail.includes('@')
+if(!emailIsValid)
+{
+  setEmailIsInValid(true)
+  return
+}
+console.log("sending http");
 }
   return (
     <form onSubmit={handleSubmit}>
@@ -20,6 +28,7 @@ function handleSubmit(e) {
         <div className="control no-margin">
           <label htmlFor="email">Email</label>
           <input id="email" type="email" name="email" ref={email}  />
+          <div className="control-error">{emailIsInValid && <p></p>}</div>
         </div>
 
         <div className="control no-margin">
