@@ -21,6 +21,7 @@ export default function EditEvent() {
         <button type="submit" className="button">
           Update
         </button>
+       
       </EventForm>
     </Modal>
   );
